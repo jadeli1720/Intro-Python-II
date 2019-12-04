@@ -1,6 +1,6 @@
 from room import Room
 
-# Declare all the rooms
+# Declare all the rooms(5)-->Room class: room title, room description
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -22,7 +22,7 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 
-# Link rooms together
+# Link rooms together --> direction attributes --> define n_to = none which equals to null for movement; will switch when a player moves into the room
 
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
