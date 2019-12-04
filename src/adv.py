@@ -22,7 +22,7 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 
-# Link rooms together --> direction attributes --> define n_to = none which equals to null for movement; will switch when a player moves into the room
+# Link rooms together (connect) --> direction attributes --> define n_to = none which equals to null for movement; will switch when a player moves into the room
 
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
@@ -38,14 +38,19 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player1 = Player("Player 1", room[outside])
 
 # Write a loop that:
 #
 # * Prints the current room name
+    
+    
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-#
+    #direction = input("choose what room you want move to by typing in one of the for cardinal directions: n, s, e, w ")
+
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
