@@ -6,11 +6,11 @@ class Player:
     This is a player call with the attributes:
     name, current_location....
     """
-    def __init__(self, name, current_location):
+    def __init__(self, name, room):
         self.name = name
-        self.current_location = current_location
+        self.room = room
 
     def __repr__(self):
-        return (f'{self.current_location}')  
+        return (f'{self.room.name}')  
     def __str__(self):
         return (f"{self.name}")

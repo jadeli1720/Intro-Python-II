@@ -4,7 +4,7 @@ from player import Player
 import textwrap
 
 # Declare all the rooms(5)-->Room class: room title, room description
-
+# Room Dictionary
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
@@ -40,31 +40,69 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
+def adventrue_game():
+        print("Welcome! Move along the 4 cardinal points. Type in n, s, e, or w. To quit type q")
+
+if __name__ == '__main__':
+  adventrue_game()
+
 # Make a new player object that is currently in the 'outside' room.
-player1 = Player("Player 1", room['outside'])
+player = Player("Player 1", room['outside'])
 
 text_wrapper = textwrap.TextWrapper()
 
 choices = ['n', 's', 'e', 'w']
 
-print(f"{player1.name}, you are currently at the {player1.current_location}")
+# Global function to help actually move a player
+def move(n_to):
+    player.room = player.room.n_to
+    # player.room = player.room.s_to
+    # player.room = player.room.w_to
+    # player.room = player.room.e_to
+    
 
-print(text_wrapper.wrap(f"{player1.current_location.description}"))
+# Write a loop that: --> Create a REPL loop to process 'n', commands
+while True:
 
+    # * Prints the current room name
+    print(f"{player.name}, you are currently at the {player.room}")
 
-# Write a loop that: --> Create a REPL loop to process commands
-# while True:
+    # * Prints the current description (the textwrap module might be useful here).
+    print(text_wrapper.wrap(f"{player.room.description}"))
 
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
+    # * Waits for user input and decides what to do.
 
-# * Waits for user input and decides what to do.
-#     #direction = input("choose what room you want move to by typing in one of the for cardinal directions: n, s, e, w ")
-#     def current_room():
-#         print("Choose which way you want to move! n, s, e, w")
-# If the user enters a cardinal direction, attempt to move to the room there.
+    # choice = input("Move('n', 's', 'e', 'w')")    
+    choice = input("->")  
 
-# Print an error message if the movement isn't allowed.
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # If player chooses 'n' & players location is room['outside'] move here
+    # directions --> n_to, s_to, e_to, w_to ==> ATTRIBUTES...must check
+    if choice == 'n' and hasattr(player.room, 'n_to'):
+        print(f"Your have moved North")
+        # player.room = player.room.n_to
+        move('n_to')
+        # print(player.room)
+        
+        
+    elif choice == 's' and hasattr(player.room, 's_to'):
+        print(f"Your have moved South to the")
+        # need figure how to move the player
 
-# If the user enters "q", quit the game.
+    elif choice == 'e':
+        print(f"Your have moved East to the")
+        # need figure how to move the player
+
+    elif choice == 'w':
+        print(f"Your have moved West to the")
+        # need figure how to move the player
+
+    # Print an error message if the movement isn't allowed.
+
+    # If the user enters "q", quit the game.
+    elif choice == "q":
+        print ("Thank you for playing. Goodbye!")
+        break
+   
+
 
