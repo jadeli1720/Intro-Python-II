@@ -1,6 +1,6 @@
 from room import Room 
 from player import Player
-# from textwrap import wrap
+from item import Item
 import textwrap
 
 # Declare all the rooms(5)-->Room class: room title, room description
@@ -36,6 +36,22 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Item 
+maps = Item("map", "Old and faded")
+rag = Item("rag", "Dirty old")
+flashlight = Item("flashlight", "Cracked")
+compass = Item("compass", "Rusty")
+
+gold = Item("golden statue", "Beautiful, dazzling")
+
+# Appending items to the rooms
+room['outside'].items.append(maps)
+room['narrow'].items.append(rag)
+room['foyer'].items.append(flashlight)
+room['overlook'].items.append(compass)
+room['treasure'].items.append(gold)
+
+
 #
 # Main
 #
@@ -54,6 +70,9 @@ def current_room():
     print(text_wrapper.wrap(f"{player.current_room.description}"))
     divider()
 
+def items():
+    print(f'Item: {player.current_room.items}')
+
 divider()
 
 # Make a new player object that is currently in the 'outside' room.
@@ -63,52 +82,48 @@ player = Player(name, room['outside'])
 
 text_wrapper = textwrap.TextWrapper()
 
+
+
 # * Prints the current room name
 
 print(f"{player.name}, you are currently at the {player.current_room}")
 
+# Prints Item in the room
+print(f'Item: {player.current_room.items}')
 # * Prints the current description (the textwrap module might be useful here).
 current_room()
 
 print(f"Please choose a direction by typing: n, s, e, or w\n", )
 
-
-# Global function to help actually move a player
-def move(cmd):
-    player.room = player.room(f"{cmd}_to")
-    # player.room = player.room.s_to
-    # player.room = player.room.w_to
-    # player.room = player.room.e_to
     
 
 # Write a loop that: --> Create a REPL loop to process 'n', commands
 while True:
 
     # * Waits for user input and decides what to do.
- 
     choice = input("->")  
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     # If player chooses 'n' & players location is room['outside'] move here
     # directions --> n_to, s_to, e_to, w_to ==> ATTRIBUTES...must check for
     if choice == 'n' and hasattr(player.current_room, 'n_to'):
-        # move('n')
-        player.current_room = player.current_room.n_to
+        player.move('n')
         print(f"Your have moved North to the {player.current_room}")
         current_room()
+        print(f'Item: {player.current_room.items}')
 
     elif choice == 's' and hasattr(player.current_room, 's_to'):
-        player.current_room = player.current_room.s_to
+        player.move('s')
         print(f"Your have moved South to the {player.current_room}")
         current_room()
 
     elif choice == 'e' and hasattr(player.current_room, 'e_to'):
-        player.current_room = player.current_room.e_to
+        player.move('e')
         print(f"Your have moved East to the {player.current_room}")
         current_room()
 
     elif choice == 'w' and hasattr(player.current_room, 'w_to'):
-        player.current_room = player.current_room.w_to
+        player.move('w')
         print(f"Your have moved West to the {player.current_room}")
         current_room()
 
